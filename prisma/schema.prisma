@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Socket {
+  id           Int           @id @default(autoincrement())
+  nome         String        @unique
+  cpus         Cpu[]
+  motherboards Motherboard[]
+}
+
+model Cpu {
+  id                Int      @id @default(autoincrement())
+  nome              String
+  socketId          Int
+  preco             Decimal?
+  createdAt         DateTime @default(now())
+  wtts              Int?
+  grafico_integrado Boolean? @map("grafico integrado")
+  socket            Socket   @relation(fields: [socketId], references: [id])
+}
+
+model Motherboard {
+  id               Int      @id @default(autoincrement())
+  nome             String
+  socketId         Int
+  tipoRam          TipoRam
+  formFactor       String?
+  preco            Decimal?
+  createdAt        DateTime @default(now())
+  Maximo_de_ram    Int?     @map("Maximo de ram")
+  slots_de_memoria Int?     @map("slots de memoria")
+  socket           Socket   @relation(fields: [socketId], references: [id])
+}
+
+model Ram {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  preco     Decimal?
+  createdAt DateTime @default(now())
+  tipo      tipoRam 
+  tamanho   Int 
+  pentes    Int      @default(1) 
+}
+
+model Gpu {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  tdp       Int
+  memoria   Int 
+  preco     Decimal?
+  createdAt DateTime @default(now())
+}
+
+enum TipoRam {
+  DDR4
+  DDR5
+} 
+
+model CpuCooler { 
+  id      Int  @id @default(autoincrement())
+  nome    String 
+  preco   Decimal?
+  createdAt DateTime @default(now())
+} 
+
+model Ssd {
+   id      Int  @id @default(autoincrement()) 
+   nome    String 
+   tamanho Int 
+   tipoSsd TipoSsd
+   preco   Decimal?
+  createdAt DateTime @default(now())
+} 
+enum TipoSsd {
+  NVME_M2
+  SATA_M2
+  SATA_2_5 
+}
+
+model Psu { 
+   id      Int  @id @default(autoincrement()) 
+   nome    String 
+   wtts    Int 
+   seloEficiencia SeloEficiencia
+   preco   Decimal?
+  createdAt DateTime @default(now())
+} 
+
+enum SeloEficiencia {
+  SEM_SELO
+  PLUS_80_WHITE
+  PLUS_80_BRONZE
+  PLUS_80_SILVER
+  PLUS_80_GOLD
+  PLUS_80_PLATINUM
+  PLUS_80_TITANIUM
+} 
+
+model Case { 
+ id      Int  @id @default(autoincrement()) 
+nome String 
+ preco   Decimal?
+  createdAt DateTime @default(now())
+} 
