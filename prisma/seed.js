@@ -18,9 +18,22 @@ async function main() {
     create: { nome: 'AM5' },
   });
 
-  const socketMap = {
+  const lga1700 = await prisma.socket.upsert({
+  where: { nome: 'LGA1700' },
+  update: {},
+  create: { nome: 'LGA1700' },
+});
+  const lga1851 = await prisma.socket.upsert({
+  where: { nome: 'LGA1851' },
+  update: {},
+  create: { nome: 'LGA1851' },
+});
+
+const socketMap = {
     AM4: am4.id,
-    AM5: am5.id,
+    AM5: am5.id, 
+    LGA1700: lga1700.id, 
+    LGA1851: lga1851.id,
   };
 
   
@@ -56,7 +69,40 @@ const cpusRyzen7 = [
   { nome: 'Ryzen 7 5800XT', socket: 'AM4', preco: 1599.99, wtts: 105, graficoIntegrado: false },
 ];
 
-const todasCpus = [...cpusRyzen5, ...cpusRyzen7, ...cpusRyzen9];
+const cpusIntel = [
+  { nome: 'Core i3-12100F', socket: 'LGA1700', preco: 599.99, wtts: 58, graficoIntegrado: false },
+  { nome: 'Core i5-12400F', socket: 'LGA1700', preco: 915.37, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core i5-14400F', socket: 'LGA1700', preco: 1214.18, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core i5-14600K', socket: 'LGA1700', preco: 1799.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core i5-14600KF', socket: 'LGA1700', preco: 1699.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core i7-12700KF', socket: 'LGA1700', preco: 1999.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core i7-14700K', socket: 'LGA1700', preco: 2799.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core i7-14700KF', socket: 'LGA1700', preco: 2249.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core i9-14900K', socket: 'LGA1700', preco: 2999.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core i9-14900KF', socket: 'LGA1700', preco: 2999.99, wtts: 125, graficoIntegrado: false }, 
+  { nome: 'Core i5-12400', socket: 'LGA1700', preco: 1523.92, wtts: 65, graficoIntegrado: true },
+  { nome: 'Core i5-12600KF', socket: 'LGA1700', preco: 1359.57, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core i5-14400', socket: 'LGA1700', preco: 1499.00, wtts: 65, graficoIntegrado: true },
+  { nome: 'Core i7-14700F', socket: 'LGA1700', preco: 2599.99, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core i9-12900F', socket: 'LGA1700', preco: 1999.99, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core i9-12900KF', socket: 'LGA1700', preco: 2599.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core i3-14100F', socket: 'LGA1700', preco: 699.99, wtts: 60, graficoIntegrado: false },
+  { nome: 'Core i5-12600K', socket: 'LGA1700', preco: 2693.25, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core i7-12700', socket: 'LGA1700', preco: 2129.90, wtts: 65, graficoIntegrado: true },
+  { nome: 'Core i7-12700F', socket: 'LGA1700', preco: 2158.15, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core i7-12700K', socket: 'LGA1700', preco: 2681.71, wtts: 125, graficoIntegrado: true }, 
+  { nome: 'Core Ultra 5 225', socket: 'LGA1851', preco: 1499.99, wtts: 65, graficoIntegrado: true },
+  { nome: 'Core Ultra 5 225F', socket: 'LGA1851', preco: 569.99, wtts: 65, graficoIntegrado: false },
+  { nome: 'Core Ultra 5 245K', socket: 'LGA1851', preco: 799.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core Ultra 5 245KF', socket: 'LGA1851', preco: 699.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core Ultra 7 265K', socket: 'LGA1851', preco: 2299.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core Ultra 7 265KF', socket: 'LGA1851', preco: 1999.99, wtts: 125, graficoIntegrado: false },
+  { nome: 'Core Ultra 9 285K', socket: 'LGA1851', preco: 3999.99, wtts: 125, graficoIntegrado: true },
+  { nome: 'Core Ultra 9 285', socket: 'LGA1851', preco: 2999.99, wtts: 65, graficoIntegrado: true },
+];
+
+
+const todasCpus = [...cpusRyzen5, ...cpusRyzen7, ...cpusRyzen9, ...cpusIntel];
 
   for (const cpu of todasCpus) {
     await prisma.cpu.upsert({
@@ -76,12 +122,55 @@ const todasCpus = [...cpusRyzen5, ...cpusRyzen7, ...cpusRyzen9];
     });
   }
 
-  console.log(`Seed concluído! ${todasCpus.length} CPUs processadas.`);
+  console.log(`Seed concluído ${todasCpus.length} CPUs processadas.`);
 }
+ 
+const motherboardsAM4 = [
+    { nome: 'MSI A520M-A PRO', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 399.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'ASRock A520M-HVS', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 379.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'ASUS Prime A520M-E', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 409.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'ASUS TUF Gaming A520M-Plus II', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 579.00, Maximo_de_ram: 128, slots_de_memoria: 2 },
+    { nome: 'Husky Nexus B450', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 349.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'Gigabyte B550M K', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 549.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'ASRock B550M-HDV', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 579.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+    { nome: 'MSI B550M Pro-VDH', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 699.00, Maximo_de_ram: 128, slots_de_memoria: 2 },
+    { nome: 'Gigabyte B550M K Ultra Durable', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 725.00, Maximo_de_ram: 128, slots_de_memoria: 2 },
+    { nome: 'Gigabyte B550 Aorus Elite AX V2', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'ATX', preco: 1419.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
+    { nome: 'MSI MPG B550 Gaming Plus', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'ATX', preco: 1199.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
+  ];
+
+  const todasMotherboards = [...motherboardsAM4];
+
+  for (const motherboard of todasMotherboards) {
+    await prisma.motherboard.upsert({
+      where: { nome: motherboard.nome },
+      update: {
+        preco: motherboard.preco,
+        tipoRam: motherboard.tipoRam,
+        formFactor: motherboard.formFactor,
+        Maximo_de_ram: motherboard.Maximo_de_ram,
+        slots_de_memoria: motherboard.slots_de_memoria,
+      },
+      create: {
+        nome: motherboard.nome,
+        socketId: socketMap[motherboard.socket],
+        tipoRam: motherboard.tipoRam,
+        formFactor: motherboard.formFactor,
+        preco: motherboard.preco,
+        Maximo_de_ram: motherboard.Maximo_de_ram,
+        slots_de_memoria: motherboard.slots_de_memoria,
+      },
+    });
+  }
+
+  console.log(`Seed concluído: ${todasMotherboards.length} motherboards processadas.`);
+
+
 
 main()
   .catch((e) => {
     console.error(e);
     process.exit(1);
   })
-  .finally(() => prisma.$disconnect());
+  .finally(() => prisma.$disconnect()); 
+
