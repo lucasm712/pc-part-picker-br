@@ -15,12 +15,12 @@ model Socket {
 
 model Cpu {
   id                Int      @id @default(autoincrement())
-  nome              String
+  nome              String   @unique
   socketId          Int
   preco             Decimal?
   createdAt         DateTime @default(now())
   wtts              Int?
-  grafico_integrado Boolean? @map("grafico integrado")
+  graficoIntegrado Boolean? @map("grafico_integrado")
   socket            Socket   @relation(fields: [socketId], references: [id])
 }
 
@@ -32,8 +32,8 @@ model Motherboard {
   formFactor       String?
   preco            Decimal?
   createdAt        DateTime @default(now())
-  Maximo_de_ram    Int?     @map("Maximo de ram")
-  slots_de_memoria Int?     @map("slots de memoria")
+  Maximo_de_ram    Int?     @map("Maximo_de_ram")
+  slots_de_memoria Int?     @map("slots_de_memoria")
   socket           Socket   @relation(fields: [socketId], references: [id])
 }
 
@@ -42,7 +42,7 @@ model Ram {
   nome      String
   preco     Decimal?
   createdAt DateTime @default(now())
-  tipo      tipoRam 
+  tipo      TipoRam 
   tamanho   Int 
   pentes    Int      @default(1) 
 }
