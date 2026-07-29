@@ -123,7 +123,7 @@ const todasCpus = [...cpusRyzen5, ...cpusRyzen7, ...cpusRyzen9, ...cpusIntel];
   }
 
   console.log(`Seed concluído ${todasCpus.length} CPUs processadas.`);
-}
+
  
 const motherboardsAM4 = [
     { nome: 'MSI A520M-A PRO', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'mATX', preco: 399.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
@@ -164,7 +164,7 @@ const motherboardsAM4 = [
   }
 
   console.log(`Seed concluído: ${todasMotherboards.length} motherboards processadas.`);
-
+}
 
 
 main()
