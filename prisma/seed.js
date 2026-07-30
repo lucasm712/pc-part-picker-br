@@ -259,6 +259,64 @@ for (const gpu of gpus) {
 }
  console.log(`Seed concluído: ${gpus.length} GPUs processadas.`); 
 
+const ssds = [
+  { nome: 'Kingston A400 480GB', tamanho: 480, tipoSsd: 'SATA_2_5', preco: 534.99 },
+  { nome: 'Rise Mode Gamer Line 480GB', tamanho: 480, tipoSsd: 'SATA_2_5', preco: 459.99 },
+  { nome: 'Adata SU650 512GB', tamanho: 512, tipoSsd: 'SATA_2_5', preco: 639.90 },
+  { nome: 'Adata SU630 480GB', tamanho: 480, tipoSsd: 'SATA_2_5', preco: 599.99 },
+  { nome: 'WD Green 480GB', tamanho: 480, tipoSsd: 'SATA_2_5', preco: 515.00 }, 
+  { nome: 'SSD Lexar NS100, 1TB, SATA III, 2.5"', tamanho:1000, tipoSsd: 'SATA_2_5', preco: 935.05}, 
+  { nome: 'SSD Husky 128GB, SATA III, 2.5', tamanho: 128, tipoSsd:'SATA_2_5', preco: 159.00}, 
+  { nome:'SSD Adata SU650, 256GB, SATA III, 2.5', tamanho: 256, tipoSsd:'SATA_2_5', preco: 345.00},
+]; 
+const ssdsNvme = [
+  { nome: 'Kingston NV3 500GB', tamanho: 500, tipoSsd: 'NVME_M2', preco: 729.99 },
+  { nome: 'Sandisk WD Green SN3000 500GB', tamanho: 500, tipoSsd: 'NVME_M2', preco: 679.99 },
+  { nome: 'Adata Legend 860 500GB', tamanho: 500, tipoSsd: 'NVME_M2', preco: 764.99 },
+  { nome: 'Husky ThunderBoost 256GB', tamanho: 256, tipoSsd: 'NVME_M2', preco: 393.99 },
+  { nome: 'Husky ThunderBoost Gen4 256GB', tamanho: 256, tipoSsd: 'NVME_M2', preco: 439.99 },
+  { nome: 'Adata Legend 710 256GB', tamanho: 256, tipoSsd: 'NVME_M2', preco: 549.99 },
+]; 
+const ssdsNvme1TB = [
+  { nome: 'Kingston NV3 1TB', tamanho: 1000, tipoSsd: 'NVME_M2', preco: 930.00 },
+  { nome: 'Sandisk WD Green SN350 1TB', tamanho: 1000, tipoSsd: 'NVME_M2', preco: 949.99 },
+  { nome: 'Husky ThunderBoost 1TB', tamanho: 1000, tipoSsd: 'NVME_M2', preco: 949.99 },
+  { nome: 'Adata XPG S70 Blade 1TB', tamanho: 1000, tipoSsd: 'NVME_M2', preco: 1699.99 },
+  { nome: 'Husky ThunderBoost Gen4 1TB', tamanho: 1000, tipoSsd: 'NVME_M2', preco: 1348.98 },
+];
+
+const ssdsNvme2TB = [
+  { nome: 'Corsair MP600 Elite 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 2499.90 },
+  { nome: 'Kingston NV3 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 2412.99 },
+  { nome: 'Kingston KC3000 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 3599.99 },
+  { nome: 'Sandisk WD Black SN8100 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 4119.90 },
+  { nome: 'Sandisk Plus 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 1730.85 },
+  { nome: 'Adata Legend 860 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 2478.99 },
+  { nome: 'Sandisk SN7100 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 3179.90 },
+  { nome: 'Sandisk SN350 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 2079.99 },
+  { nome: 'WD Green SN350 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 1766.05 },
+  { nome: 'Corsair Force MP600 Pro XT 2TB', tamanho: 2000, tipoSsd: 'NVME_M2', preco: 3399.90 }, 
+  
+];
+const todosSsds = [...ssds, ...ssdsNvme, ...ssdsNvme1TB, ...ssdsNvme2TB];
+
+for (const ssd of todosSsds) {
+  await prisma.ssd.upsert({
+    where: { nome: ssd.nome },
+    update: {
+      tamanho: ssd.tamanho,
+      tipoSsd: ssd.tipoSsd,
+      preco: ssd.preco,
+    },
+    create: {
+      nome: ssd.nome,
+      tamanho: ssd.tamanho,
+      tipoSsd: ssd.tipoSsd,
+      preco: ssd.preco,
+    },
+  });
+}
+ console.log(`Seed concluído: ${todosSsds.length} ssds processados.`); 
 }
 
 
