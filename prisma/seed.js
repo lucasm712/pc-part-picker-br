@@ -382,7 +382,26 @@ for (const cooler of coolers) {
   });
 }
 console.log(`Seed concluído: ${coolers.length} coolers processados.`);
+const cases = [
+  { nome: 'Montech X3 Mesh Mid-Tower 6x Fans ARGB Preto (X3MESHBK)', preco: 269.90 },
+  { nome: 'ESGaming Zero Mid Tower M-ATX Vidro Temperado Sem Fans Preto (ZERO-BK)', preco: 219.90 },
+  { nome: 'Husky Dome 210 Mini Tower M-ATX Vidro Sem Fans Branco (HGN210BR)', preco: 189.99 },
+  { nome: 'K-mex Ghost Shark Full Tower ATX Sem Cooler (Cg-02j1)', preco: 349.94 },
+];
 
+for (const gabinete of cases) {
+  await prisma.case.upsert({
+    where: { nome: gabinete.nome },
+    update: {
+      preco: gabinete.preco,
+    },
+    create: {
+      nome: gabinete.nome,
+      preco: gabinete.preco,
+    },
+  });
+}
+console.log(`Seed concluído: ${cases.length} gabinetes processados.`);
 }
 
 

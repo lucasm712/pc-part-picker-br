@@ -108,7 +108,7 @@ enum SeloEficiencia {
 
 model Case { 
  id      Int  @id @default(autoincrement()) 
-nome String 
+ nome    String @unique
  preco   Decimal?
   createdAt DateTime @default(now())
 } 
