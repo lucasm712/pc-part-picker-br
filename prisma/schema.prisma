@@ -63,10 +63,15 @@ enum TipoRam {
 
 model CpuCooler { 
   id      Int  @id @default(autoincrement())
-  nome    String 
+  nome    String @unique
+  tipo    TipoCooler
   preco   Decimal?
   createdAt DateTime @default(now())
 } 
+enum TipoCooler {
+  AIR
+  WATER
+}
 
 model Ssd {
    id      Int  @id @default(autoincrement()) 

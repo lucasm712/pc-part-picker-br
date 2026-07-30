@@ -356,6 +356,33 @@ for (const psu of psus) {
 }
 console.log(`Seed concluído: ${psus.length} PSUs processadas.`); 
 
+const coolers = [
+  { nome: 'Rise Mode Z5 LED Rainbow AMD/Intel 90mm (RM-ACZ-Z5-RGB)', tipo: 'AIR', preco: 38.00 },
+  { nome: 'Mach1 Artic ARGB AMD/Intel 120mm (A40)', tipo: 'AIR', preco: 74.00 },
+  { nome: 'Rise Mode G800 ARGB AMD/Intel 90mm', tipo: 'AIR', preco: 90.00 },
+  { nome: 'Husky Alisius 500 ARGB Display AMD/Intel 120mm 220W', tipo: 'AIR', preco: 129.00 },
+  { nome: 'TRYX Turris T620 Dual Tower LCD 5" 6 Heatpipes 120mm 280W', tipo: 'AIR', preco: 899.00 },
+  { nome: 'Rise Mode Temp 6 Black AMD/Intel 120mm 240W', tipo: 'AIR', preco: 144.00 },
+  { nome: 'Rise Mode Aura Ice ARGB 360mm AMD/Intel 300W', tipo: 'WATER', preco: 279.00 },
+  { nome: 'Rise Mode Aura Ice Black ARGB 120mm AMD/Intel 220W', tipo: 'WATER', preco: 190.00 },
+];
+
+for (const cooler of coolers) {
+  await prisma.cpuCooler.upsert({
+    where: { nome: cooler.nome },
+    update: {
+      tipo: cooler.tipo,
+      preco: cooler.preco,
+    },
+    create: {
+      nome: cooler.nome,
+      tipo: cooler.tipo,
+      preco: cooler.preco,
+    },
+  });
+}
+console.log(`Seed concluído: ${coolers.length} coolers processados.`);
+
 }
 
 
