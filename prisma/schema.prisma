@@ -84,7 +84,7 @@ enum TipoSsd {
 
 model Psu { 
    id      Int  @id @default(autoincrement()) 
-   nome    String 
+   nome    String @unique
    wtts    Int 
    seloEficiencia SeloEficiencia
    preco   Decimal?

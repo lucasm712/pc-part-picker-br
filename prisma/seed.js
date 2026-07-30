@@ -317,6 +317,45 @@ for (const ssd of todosSsds) {
   });
 }
  console.log(`Seed concluído: ${todosSsds.length} ssds processados.`); 
+
+const psus = [
+  { nome: 'Husky Sledger 550W', wtts: 550, seloEficiencia: 'PLUS_80_WHITE', preco: 200.00 },
+  { nome: 'Corsair CX 550W', wtts: 550, seloEficiencia: 'PLUS_80_BRONZE', preco: 479.00 },
+  { nome: 'MSI MAG A650BN 650W', wtts: 650, seloEficiencia: 'PLUS_80_BRONZE', preco: 249.00 },
+  { nome: 'Gigabyte P650G PG5 650W', wtts: 650, seloEficiencia: 'PLUS_80_GOLD', preco: 249.00 },
+  { nome: 'MSI MAG A600DN 600W', wtts: 600, seloEficiencia: 'PLUS_80_WHITE', preco: 279.00 },
+  { nome: 'Mach1 500W', wtts: 500, seloEficiencia: 'PLUS_80_BRONZE', preco: 219.00 },
+  { nome: 'Cooler Master MWE Gold 750 V3 ATX 3.1', wtts: 750, seloEficiencia: 'PLUS_80_GOLD', preco: null },
+  { nome: 'Corsair CX750', wtts: 750, seloEficiencia: 'PLUS_80_BRONZE', preco: null },
+  { nome: 'MSI MAG A850GL 850W Modular', wtts: 850, seloEficiencia: 'PLUS_80_GOLD', preco: 879.00 },
+  { nome: 'Gigabyte UD 850W', wtts: 850, seloEficiencia: 'PLUS_80_GOLD', preco: 799.00 },
+  { nome: 'Mach1 Empower 850W Cybenetics Platinum', wtts: 850, seloEficiencia: 'PLUS_80_PLATINUM', preco: 499.00 },
+  { nome: 'Husky Sledger 950W Cybenetics', wtts: 950, seloEficiencia: 'PLUS_80_PLATINUM', preco: 689.00 },
+  { nome: 'Montec 1000W', wtts: 1000, seloEficiencia: 'PLUS_80_PLATINUM', preco: 1299.00 },
+  { nome: 'ASUS TUF Gaming 1000W', wtts: 1000, seloEficiencia: 'PLUS_80_GOLD', preco: 1299.00 },
+  { nome: 'Montec Titan PLA 1200W', wtts: 1200, seloEficiencia: 'PLUS_80_PLATINUM', preco: 1399.00 },
+  { nome: 'Mach1 Empower 1250W Cybenetics Platinum', wtts: 1250, seloEficiencia: 'PLUS_80_PLATINUM', preco: 799.00 },
+  { nome: 'ASUS ROG Thor III 1000W', wtts: 1000, seloEficiencia: 'PLUS_80_PLATINUM', preco: 3000.00 },
+];
+
+for (const psu of psus) {
+  await prisma.psu.upsert({
+    where: { nome: psu.nome },
+    update: {
+      wtts: psu.wtts,
+      seloEficiencia: psu.seloEficiencia,
+      preco: psu.preco,
+    },
+    create: {
+      nome: psu.nome,
+      wtts: psu.wtts,
+      seloEficiencia: psu.seloEficiencia,
+      preco: psu.preco,
+    },
+  });
+}
+console.log(`Seed concluído: ${psus.length} PSUs processadas.`); 
+
 }
 
 
