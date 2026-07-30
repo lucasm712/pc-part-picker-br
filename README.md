@@ -9,4 +9,7 @@ Uma plataforma em desenvolvimento inspirada no PCPartPicker, focada no mercado b
 - **Node.js**
 - **JavaScript / TypeScript**
 - **Prisma ORM**
-- **PostgreSQL**
+- **PostgreSQL** 
+
+
+
