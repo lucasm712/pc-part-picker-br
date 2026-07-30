@@ -186,7 +186,45 @@ const motherboardsAM5 = [
   }
 
   console.log(`Seed concluído: ${todasMotherboards.length} motherboards processadas.`);
+
+const ramsDDR4 = [
+  { nome: 'Corsair Vengeance RGB Pro 2666MHz 8GB', tipo: 'DDR4', tamanho: 8, pentes: 2, preco: 1326.00 },
+  { nome: 'Kingston Fury Beast 3200MHz 16GB', tipo: 'DDR4', tamanho: 16, pentes: 1, preco: 1221.00 },
+  { nome: 'Husky Impulse 3200MHz 16GB', tipo: 'DDR4', tamanho: 16, pentes: 1, preco: 669.99 },
+  { nome: 'Husky Impulse 3200MHz 8GB', tipo: 'DDR4', tamanho: 8, pentes: 1, preco: 379.00 },
+  { nome: 'Kingston Fury Beast 3200MHz 8GB', tipo: 'DDR4', tamanho: 8, pentes: 1, preco: 629.00 },
+  { nome: 'Kingston Fury Beast RGB 3600MHz 8GB', tipo: 'DDR4', tamanho: 8, pentes: 1, preco: 845.00 },
+]; 
+
+const ramsDDR5 = [
+  { nome: 'Kingston Fury Beast 5600MHz 16GB', tipo: 'DDR5', tamanho: 16, pentes: 1, preco: 1800.00 },
+  { nome: 'Corsair Vengeance 6000MHz 16GB', tipo: 'DDR5', tamanho: 16, pentes: 2, preco: 3500.00 },
+  { nome: 'Kingston Fury Beast 5600MHz 8GB', tipo: 'DDR5', tamanho: 8, pentes: 1, preco: 1400.00 },
+];
+const todasRams = [...ramsDDR4, ...ramsDDR5];
+
+for (const ram of todasRams) {
+  await prisma.ram.upsert({
+    where: { nome: ram.nome },
+    update: {
+      preco: ram.preco,
+      tipo: ram.tipo,
+      tamanho: ram.tamanho,
+      pentes: ram.pentes,
+    },
+    create: {
+      nome: ram.nome,
+      tipo: ram.tipo,
+      tamanho: ram.tamanho,
+      pentes: ram.pentes,
+      preco: ram.preco,
+    }, 
+    
+  }); 
+  } 
+   console.log(`Seed concluído: ${todasRams.length} ram processadas.`);
 }
+
 
 
 main()
