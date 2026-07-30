@@ -222,7 +222,43 @@ for (const ram of todasRams) {
     
   }); 
   } 
-   console.log(`Seed concluído: ${todasRams.length} ram processadas.`);
+   console.log(`Seed concluído: ${todasRams.length} ram processadas.`); 
+
+   const gpus = [
+  { nome: 'Gigabyte RX 7600 Gaming OC 8GB', tdp: 165, memoria: 8, preco: 1599.00 },
+  { nome: 'ASUS RTX 5050 Dual OC 8GB', tdp: 130, memoria: 8, preco: 1959.00 },
+  { nome: 'ASRock Arc B580 Challenger OC 12GB', tdp: 190, memoria: 12, preco: 1969.00 },
+  { nome: 'MSI RTX 5060 Shadow 2X OC 8GB', tdp: 145, memoria: 8, preco: 2300.00 },
+  { nome: 'ASRock RX 9060 XT CL16GO 16GB', tdp: 182, memoria: 16, preco: 2800.00 },
+  { nome: 'ASUS RTX 5060 Ti 16GB', tdp: 180, memoria: 16, preco: 4299.00 },
+  { nome: 'RTX 5070 Infinity 3 12GB', tdp: 250, memoria: 12, preco: 4699.00 },
+  { nome: 'ASUS Prime RTX 9070 XT OC Edition 16GB', tdp: 304, memoria: 16, preco: 4800.00 },
+  { nome: 'Powercolor Reaper RX 9070 XT', tdp: 304, memoria: 16, preco: 4200.00 },
+  { nome: 'MSI RTX 5070 Ti 16GB', tdp: 300, memoria: 16, preco: 7784.00 },
+  { nome: 'MSI RTX 5080 Gaming Trio OC 16GB', tdp: 360, memoria: 16, preco: 12500.00 },
+  { nome: 'MSI RTX 5080 Shadow 16GB', tdp: 360, memoria: 16, preco: 13599.00 },
+  { nome: 'ASUS ROG Astral RTX 5090 White 32GB', tdp: 575, memoria: 32, preco: 26999.00 },
+  { nome: 'ASUS ROG Astral RTX 5090 32GB', tdp: 575, memoria: 32, preco: 28699.00 },
+]; 
+
+for (const gpu of gpus) {
+  await prisma.gpu.upsert({
+    where: { nome: gpu.nome },
+    update: {
+      tdp: gpu.tdp,
+      memoria: gpu.memoria,
+      preco: gpu.preco,
+    },
+    create: {
+      nome: gpu.nome,
+      tdp: gpu.tdp,
+      memoria: gpu.memoria,
+      preco: gpu.preco,
+    },
+  });
+}
+ console.log(`Seed concluído: ${gpus.length} GPUs processadas.`); 
+
 }
 
 

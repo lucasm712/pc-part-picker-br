@@ -49,7 +49,7 @@ model Ram {
 
 model Gpu {
   id        Int      @id @default(autoincrement())
-  nome      String
+  nome      String   @unique
   tdp       Int
   memoria   Int 
   preco     Decimal?
