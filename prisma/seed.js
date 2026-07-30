@@ -139,7 +139,29 @@ const motherboardsAM4 = [
     { nome: 'MSI MPG B550 Gaming Plus', socket: 'AM4', tipoRam: 'DDR4', formFactor: 'ATX', preco: 1199.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
   ];
 
-  const todasMotherboards = [...motherboardsAM4];
+const motherboardsLGA1700 = [
+  { nome: 'Gigabyte H610M K', socket: 'LGA1700', tipoRam: 'DDR4', formFactor: 'mATX', preco: 440.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+  { nome: 'MSI Pro B760M-E', socket: 'LGA1700', tipoRam: 'DDR4', formFactor: 'mATX', preco: 769.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
+  { nome: 'ASUS Prime H610M-E D4', socket: 'LGA1700', tipoRam: 'DDR4', formFactor: 'mATX', preco: 765.00, Maximo_de_ram: 64, slots_de_memoria: 2 },
+  { nome: 'Gigabyte B760M DS3H DDR5', socket: 'LGA1700', tipoRam: 'DDR5', formFactor: 'mATX', preco: 1170.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+  { nome: 'MSI Pro B760M-A DDR5', socket: 'LGA1700', tipoRam: 'DDR5', formFactor: 'mATX', preco: 849.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+];
+
+const motherboardsLGA1851 = [
+  { nome: 'Gigabyte B860M Aorus Elite', socket: 'LGA1851', tipoRam: 'DDR5', formFactor: 'mATX', preco: 1729.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+  { nome: 'Gigabyte B860M Aorus Elite WiFi6E Ice', socket: 'LGA1851', tipoRam: 'DDR5', formFactor: 'mATX', preco: 1799.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+  { nome: 'ASUS B860M AYW Gaming', socket: 'LGA1851', tipoRam: 'DDR5', formFactor: 'mATX', preco: 1419.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+];
+
+const motherboardsAM5 = [
+  { nome: 'Gigabyte B650M Gaming Rev.1.0', socket: 'AM5', tipoRam: 'DDR5', formFactor: 'mATX', preco: 999.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
+  { nome: 'ASUS Prime A620M-E', socket: 'AM5', tipoRam: 'DDR5', formFactor: 'mATX', preco: 775.00, Maximo_de_ram: 128, slots_de_memoria: 2 },
+  { nome: 'MSI Pro B840M-B', socket: 'AM5', tipoRam: 'DDR5', formFactor: 'mATX', preco: 850.00, Maximo_de_ram: 128, slots_de_memoria: 2 },
+  { nome: 'MSI MAG B650 Tomahawk', socket: 'AM5', tipoRam: 'DDR5', formFactor: 'ATX', preco: 1800.00, Maximo_de_ram: 256, slots_de_memoria: 4 },
+  { nome: 'Gigabyte B650M Aorus Elite AX', socket: 'AM5', tipoRam: 'DDR5', formFactor: 'mATX', preco: 1480.00, Maximo_de_ram: 128, slots_de_memoria: 4 },
+];
+
+  const todasMotherboards = [...motherboardsAM4, ...motherboardsLGA1700, ...motherboardsLGA1851,...motherboardsAM5];
 
   for (const motherboard of todasMotherboards) {
     await prisma.motherboard.upsert({
