@@ -22,3 +22,10 @@ export function limiteSlot (motherboard,ram) {
     return slotLimite
 } 
 
+export function limiteSlotTotal(motherboard, ramsSelecionadas) {
+    const totalPentes = ramsSelecionadas.reduce(
+        (total, item) => total + (item.ram.pentes * item.quantidade), 
+        0
+    );
+    return motherboard.slots_de_memoria >= totalPentes;
+}
