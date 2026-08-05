@@ -67,7 +67,7 @@ O schema modela as relações reais de compatibilidade de hardware:
 - **Ram** → tipo (DDR4/DDR5), tamanho por pente, quantidade de pentes
 - **Gpu** → TDP e quantidade de memória de vídeo
 - **Ssd** → tipo de conexão (NVMe M.2, SATA M.2, SATA 2.5")
-- **Psu** → wattage e selo de eficiência 80 Plus
+- **Psu** → wattage e selo de eficiência
 - **Case** → gabinete (em expansão)
 
 ---
