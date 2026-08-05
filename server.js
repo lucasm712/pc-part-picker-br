@@ -9,7 +9,8 @@ import express from 'express'
   const app = express()
 app.use(express.json()) 
 
-
+import cors from 'cors'
+app.use(cors())
 
 async function getCpuData (req,res) {
 
