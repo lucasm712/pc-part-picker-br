@@ -4,7 +4,7 @@ Uma plataforma em desenvolvimento inspirada no [PCPartPicker](https://pcpartpick
 
 ## Sobre o projeto
 
-A maioria das ferramentas de montagem de PC é voltada pro mercado americano/europeu, o que torna a comparação de preço e disponibilidade pouco útil pra quem compra no Brasil. Esse projeto nasceu como resposta a isso: um part picker que considera **preços reais de varejistas brasileiros** (Kabum, Pichau, Terabyte) e implementa, na mão, as regras de compatibilidade entre componentes — sem depender de bibliotecas prontas.
+A maioria das ferramentas de montagem de PC é voltada pro mercado americano/europeu, o que torna a comparação de preço e disponibilidade pouco útil pra quem compra no Brasil. Esse projeto nasceu como resposta a isso: uma ferramenta que considera **preços reais de varejistas brasileiros** (Kabum, Pichau, Terabyte) e implementa as regras de compatibilidade entre componentes do zero, sem depender de bibliotecas prontas.
 
 O foco do projeto é tanto o resultado final quanto o processo: modelagem de banco relacional, lógica de negócio de compatibilidade de hardware, e uma API REST consumida por um front-end em React.
 
