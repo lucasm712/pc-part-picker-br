@@ -63,7 +63,7 @@ O schema modela as relações reais de compatibilidade de hardware:
 
 - **Socket** → relaciona quais CPUs e placas-mãe são fisicamente compatíveis
 - **Cpu** → possui TDP (`wtts`), presença de gráfico integrado, e vínculo com socket
-- **Motherboard** → possui tipo de RAM suportado, capacidade máxima, quantidade de slots, e form factor
+- **Motherboard** → possui tipo de RAM suportado, capacidade máxima, quantidade de slots
 - **Ram** → tipo (DDR4/DDR5), tamanho por pente, quantidade de pentes
 - **Gpu** → TDP e quantidade de memória de vídeo
 - **Ssd** → tipo de conexão (NVMe M.2, SATA M.2, SATA 2.5")
