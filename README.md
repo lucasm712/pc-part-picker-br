@@ -61,7 +61,7 @@ O foco do projeto é tanto o resultado final quanto o processo: modelagem de ban
 
 O schema modela as relações reais de compatibilidade de hardware:
 
-- **Socket** → relaciona quais CPUs e placas-mãe são fisicamente compatíveis
+- **Socket** → relaciona quais CPUs e placas-mãe são fisicamente compatíveis.
 - **Cpu** → possui TDP (`wtts`), presença de gráfico integrado, e vínculo com socket
 - **Motherboard** → possui tipo de RAM suportado, capacidade máxima, quantidade de slots
 - **Ram** → tipo (DDR4/DDR5), tamanho por pente, quantidade de pentes
@@ -74,7 +74,7 @@ O schema modela as relações reais de compatibilidade de hardware:
 
 ## Autor
 
-Desenvolvido por [Lucas](https://github.com/lucasm712) como projeto de portfolio, aplicando conceitos de modelagem relacional, lógica de compatibilidade de hardware e desenvolvimento full-stack com React + Node + Prisma.
+Desenvolvido por [Lucas](https://github.com/lucasm712) aplicando conceitos de modelagem relacional, lógica de compatibilidade de hardware e desenvolvimento full-stack com React + Node + Prisma.
 
 
 
