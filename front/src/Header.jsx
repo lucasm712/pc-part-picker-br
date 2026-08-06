@@ -3,7 +3,7 @@ function Header() {
     <header> 
         <nav>
     <ul>
-      <h1>PEÇAS DE PC</h1>
+      <h1>Pc builder BR</h1>
     
       <li><a href="about.html">Peças</a></li>
     </ul> 

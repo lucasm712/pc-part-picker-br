@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import MotherboardList from './MotherboardList.jsx'
 import CpuList from './CpuList.jsx';
 import GpuList from './GpuList.jsx';
-import { compatibilidadeCpuMb, compatibilidadeRamMb, ramCalculo, ramLimit, limiteSlotTotal } from './compatibilidade.js'
+import { compatibilidadeCpuMb, consumoTotal, psuSuficiente, compatibilidadeRamMb, precoTotal, ramCalculo, ramLimit, limiteSlotTotal } from './compatibilidade.js'
 import RamList from './RamList.jsx'
 import SsdsList from './SsdsList.jsx'
 import PsuList from './PsuLimit.jsx'
@@ -18,8 +18,18 @@ function App() {
   const [ramsSelecionadas, setRamsSelecionadas] = useState([]);
   const [ssdsSelecionados, setSsdsSelecionados] = useState([]);
   const [psusSelecionada, setPsusSelecionada] = useState(null);
+  const consumo = consumoTotal(cpuSelecionada, gpuSelecionada);
+  const psuOk = psusSelecionada ? psuSuficiente(psusSelecionada, consumo) : false;
 
-
+ const total = precoTotal({
+  cpu: cpuSelecionada,
+  motherboard: placaSelecionada,
+  gpu: gpuSelecionada,
+  rams: ramsSelecionadas,
+  ssds: ssdsSelecionados,
+  psu: psusSelecionada,
+});
+ 
   function acionarMontador() {
     setMostrarLista(true);
   }
@@ -33,7 +43,7 @@ function App() {
       0
     );
 
-    if (totalPentesAtual + ram.pentes > limiteSlots) return; // não deixa passar do limite de slots da mb
+    if (totalPentesAtual + ram.pentes > limiteSlots) return; 
 
     if (existente) {
       setRamsSelecionadas(
@@ -117,7 +127,10 @@ const removerSsd = (ssd) => {
       {cpuSelecionada && etapa === 'cpu' && ( 
         <> 
           <p>Você escolheu: {cpuSelecionada.nome}</p> 
+         <p>Preço total: R$ {total.toFixed(2)}</p>
+         
           <button onClick={() => setEtapa('motherboard')}>Próximo</button>
+          <button onClick={() => setCpuSelecionada(null)}>Voltar</button>
         </>
       )}
 
@@ -135,7 +148,9 @@ const removerSsd = (ssd) => {
           ) : (
             <p>Incompatível com a CPU selecionada.</p>
           )}
+          <p>Preço total: R$ {total.toFixed(2)}</p>
           <button onClick={() => setEtapa('gpu')}>Próximo</button>
+          <button onClick={() => {setPlacaSelecionada(null), setEtapa('cpu')}}>Voltar</button>
         </>
       )}
 
@@ -148,7 +163,9 @@ const removerSsd = (ssd) => {
       {gpuSelecionada && etapa === 'gpu' && (
         <>
           <p>Você escolheu: {gpuSelecionada.nome}</p>
+          <p>Preço total: R$ {total.toFixed(2)}</p>
           <button onClick={() => setEtapa('ram')}>Próximo</button> 
+          <button onClick={() => {setGpuSelecionada(null), setEtapa('motherboard')}}>Voltar</button>
         </>
       )} 
      
@@ -164,6 +181,7 @@ const removerSsd = (ssd) => {
       {ramsSelecionadas.length > 0 && etapa === 'ram' && (
         <>
           <p>Você escolheu:</p>
+  
           <ul>
             {ramsSelecionadas.map((item) => (
               <li key={item.ram.id}>
@@ -171,9 +189,11 @@ const removerSsd = (ssd) => {
               </li>
             ))}
           </ul>
+         <p>Preço total: R$ {total.toFixed(2)}</p>
           <p>Capacidade total: {capacidadeTotalRam}GB {capacidadeOk ? '✅' : '❌ excede o máximo da motherboard'}</p>
           <p>Slots: {slotsOk ? '✅ dentro do limite' : '❌ excede os slots disponíveis'}</p>
          <button onClick={() => setEtapa('ssd')}>Próximo</button> 
+         <button onClick={() => {setRamsSelecionadas([]), setEtapa('gpu')}}>Voltar</button>
         </>
       )} 
      {etapa === 'ssd' &&  (
@@ -187,6 +207,7 @@ const removerSsd = (ssd) => {
       {ssdsSelecionados.length > 0 && etapa === 'ssd' && (
         <>
           <p>Você escolheu:</p>
+         
           <ul>
             {ssdsSelecionados.map((item) => (
               <li key={item.ssds.id}>
@@ -194,10 +215,12 @@ const removerSsd = (ssd) => {
               </li>
             ))} 
             </ul>  
+             <p>Preço total: R$ {total.toFixed(2)}</p>
             <alert> 
               <p>*IMPORTANTE* Certifique-se de que sua placa mae suporta o tipo e a quantidadede SSDs escolhidos </p>
             </alert> 
              <button onClick={() => setEtapa('psu')}>Próximo</button> 
+             <button onClick={() => {setSsdsSelecionados([]), setEtapa('ram')}}>Voltar</button>
         </>
         )}  
        {etapa === 'psu' && (
@@ -209,7 +232,11 @@ const removerSsd = (ssd) => {
       {psusSelecionada && etapa === 'psu' && (
         <>
           <p>Você escolheu: {psusSelecionada.nome}</p>
+          <p>Preço total: R$ {total.toFixed(2)}</p>
+          <p>Consumo estimado: {consumo}W</p>
+          <p>PSU suficiente: {psuOk ? '✅' : '❌'}</p>
           <button onClick={() => setEtapa('final')}>Finalizar</button>
+          <button onClick={() => {setPsusSelecionada(null), setEtapa('ssd')}}>Voltar</button>
         </>
       )}
     </>
