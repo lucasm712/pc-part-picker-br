@@ -1,3 +1,4 @@
+import './App.css';
 import Header from './Header.jsx'
 import Hero from './Hero.jsx' 
 import Montarpc from './montarPc.jsx'
@@ -115,8 +116,11 @@ const removerSsd = (ssd) => {
   return (
     <>
       <Header></Header>
+      <main>
       <Hero></Hero> 
-      <Montarpc onClick={acionarMontador}/> 
+    {!mostrarLista && (
+  <Montarpc onClick={acionarMontador} />
+)}
 
       {mostrarLista && etapa === 'cpu' && ( 
          <CpuList 
@@ -184,14 +188,17 @@ const removerSsd = (ssd) => {
   
           <ul>
             {ramsSelecionadas.map((item) => (
-              <li key={item.ram.id}>
-                {item.quantidade}x {item.ram.nome} - {compatibilidadeRamMb(item.ram, placaSelecionada) ? 'Compatível (tipo)' : 'Incompatível (tipo)'}
-              </li>
+             <li key={item.ram.id}>
+             {item.quantidade}x {item.ram.nome} - {' '}
+             <span className={compatibilidadeRamMb(item.ram, placaSelecionada) ? 'status-ok' : 'status-erro'}>
+             {compatibilidadeRamMb(item.ram, placaSelecionada) ? 'Compatível' : 'Incompatível'}
+           </span>
+           </li>
             ))}
           </ul>
          <p>Preço total: R$ {total.toFixed(2)}</p>
-          <p>Capacidade total: {capacidadeTotalRam}GB {capacidadeOk ? '✅' : '❌ excede o máximo da motherboard'}</p>
-          <p>Slots: {slotsOk ? '✅ dentro do limite' : '❌ excede os slots disponíveis'}</p>
+         <p>Capacidade total: {capacidadeTotalRam}GB <span className={capacidadeOk ? 'status-ok' : 'status-erro'}>{capacidadeOk ? 'OK' : 'Excede o máximo da motherboard'}</span></p>
+         <p>Slots: <span className={slotsOk ? 'status-ok' : 'status-erro'}>{slotsOk ? 'Dentro do limite' : 'Excede os slots disponíveis'}</span></p>
          <button onClick={() => setEtapa('ssd')}>Próximo</button> 
          <button onClick={() => {setRamsSelecionadas([]), setEtapa('gpu')}}>Voltar</button>
         </>
@@ -234,11 +241,12 @@ const removerSsd = (ssd) => {
           <p>Você escolheu: {psusSelecionada.nome}</p>
           <p>Preço total: R$ {total.toFixed(2)}</p>
           <p>Consumo estimado: {consumo}W</p>
-          <p>PSU suficiente: {psuOk ? '✅' : '❌'}</p>
+          <p>PSU suficiente: {psuOk ? <span className="status-ok">Suficiente</span> : <span className="status-erro">Insuficiente</span>}</p>
           <button onClick={() => setEtapa('final')}>Finalizar</button>
           <button onClick={() => {setPsusSelecionada(null), setEtapa('ssd')}}>Voltar</button>
         </>
       )}
+   </main>
     </>
   );
 }
