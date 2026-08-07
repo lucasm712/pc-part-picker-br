@@ -26,7 +26,10 @@ function PsuList({ psuSelecionado, onSelecionar }) {
      onClick={() => onSelecionar(psu)}
      style={{ cursor: 'pointer', fontWeight: selecionado ? 'bold' : 'normal' }} 
      > 
-      {psu.nome} - R$ {psu.preco}
+      <div className="item-card">
+     <div className="item-imagem-placeholder"></div>
+      {psu.nome} - R$ {psu.preco} 
+      </div>
     </li>     
    } 
 

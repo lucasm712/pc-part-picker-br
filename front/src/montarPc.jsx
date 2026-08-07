@@ -1,7 +1,7 @@
 function Montarpc(props) { 
      return ( 
         <div className="montarpc">
-        <button onClick={props.onClick}>Monte seu PC 
+        <button onClick={props.onClick}>Montar PC 
             </button> 
         </div>
      );

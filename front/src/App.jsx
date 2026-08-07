@@ -22,6 +22,8 @@ function App() {
   const consumo = consumoTotal(cpuSelecionada, gpuSelecionada);
   const psuOk = psusSelecionada ? psuSuficiente(psusSelecionada, consumo) : false;
 
+
+
  const total = precoTotal({
   cpu: cpuSelecionada,
   motherboard: placaSelecionada,
@@ -111,9 +113,10 @@ const removerSsd = (ssd) => {
     );
   } else {
     setSsdsSelecionados(ssdsSelecionados.filter(item => item.ssds.id !== ssd.id));
-  }
+  } 
 }
-  return (
+ 
+ return (
     <>
       <Header></Header>
       <main>
@@ -130,11 +133,14 @@ const removerSsd = (ssd) => {
       )}
       {cpuSelecionada && etapa === 'cpu' && ( 
         <> 
-          <p>Você escolheu: {cpuSelecionada.nome}</p> 
+        <div className="resumo-selecao"> 
+        
+         <p>Você escolheu: {cpuSelecionada.nome}</p> 
          <p>Preço total: R$ {total.toFixed(2)}</p>
          
           <button onClick={() => setEtapa('motherboard')}>Próximo</button>
           <button onClick={() => setCpuSelecionada(null)}>Voltar</button>
+        </div>
         </>
       )}
 
@@ -146,6 +152,7 @@ const removerSsd = (ssd) => {
       )} 
       {placaSelecionada && etapa === 'motherboard' && (
         <>
+        <div className="resumo-selecao">
           <p>Você escolheu: {placaSelecionada.nome}</p>
           {compatibilidadeCpuMb(cpuSelecionada, placaSelecionada) ? (
             <p>Compatível com a CPU selecionada.</p>
@@ -155,6 +162,7 @@ const removerSsd = (ssd) => {
           <p>Preço total: R$ {total.toFixed(2)}</p>
           <button onClick={() => setEtapa('gpu')}>Próximo</button>
           <button onClick={() => {setPlacaSelecionada(null), setEtapa('cpu')}}>Voltar</button>
+        </div>
         </>
       )}
 
@@ -166,10 +174,12 @@ const removerSsd = (ssd) => {
       )}
       {gpuSelecionada && etapa === 'gpu' && (
         <>
+          <div className="resumo-selecao">
           <p>Você escolheu: {gpuSelecionada.nome}</p>
           <p>Preço total: R$ {total.toFixed(2)}</p>
           <button onClick={() => setEtapa('ram')}>Próximo</button> 
           <button onClick={() => {setGpuSelecionada(null), setEtapa('motherboard')}}>Voltar</button>
+       </div>
         </>
       )} 
      
@@ -184,6 +194,7 @@ const removerSsd = (ssd) => {
       )} 
       {ramsSelecionadas.length > 0 && etapa === 'ram' && (
         <>
+         <div className="resumo-selecao">
           <p>Você escolheu:</p>
   
           <ul>
@@ -201,6 +212,7 @@ const removerSsd = (ssd) => {
          <p>Slots: <span className={slotsOk ? 'status-ok' : 'status-erro'}>{slotsOk ? 'Dentro do limite' : 'Excede os slots disponíveis'}</span></p>
          <button onClick={() => setEtapa('ssd')}>Próximo</button> 
          <button onClick={() => {setRamsSelecionadas([]), setEtapa('gpu')}}>Voltar</button>
+         </div>
         </>
       )} 
      {etapa === 'ssd' &&  (
@@ -213,6 +225,7 @@ const removerSsd = (ssd) => {
       )} 
       {ssdsSelecionados.length > 0 && etapa === 'ssd' && (
         <>
+         <div className="resumo-selecao"> 
           <p>Você escolheu:</p>
          
           <ul>
@@ -228,6 +241,7 @@ const removerSsd = (ssd) => {
             </alert> 
              <button onClick={() => setEtapa('psu')}>Próximo</button> 
              <button onClick={() => {setSsdsSelecionados([]), setEtapa('ram')}}>Voltar</button>
+       </div>
         </>
         )}  
        {etapa === 'psu' && (
@@ -238,12 +252,14 @@ const removerSsd = (ssd) => {
       )} 
       {psusSelecionada && etapa === 'psu' && (
         <>
+         <div className="resumo-selecao">
           <p>Você escolheu: {psusSelecionada.nome}</p>
           <p>Preço total: R$ {total.toFixed(2)}</p>
           <p>Consumo estimado: {consumo}W</p>
           <p>PSU suficiente: {psuOk ? <span className="status-ok">Suficiente</span> : <span className="status-erro">Insuficiente</span>}</p>
           <button onClick={() => setEtapa('final')}>Finalizar</button>
           <button onClick={() => {setPsusSelecionada(null), setEtapa('ssd')}}>Voltar</button>
+        </div>
         </>
       )}
    </main>

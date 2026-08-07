@@ -32,10 +32,14 @@ function formatarTamanho(tamanho) {
 
         return (
             <li key={ssd.id}>
+               <div className="item-card">
+               <div className="item-imagem-placeholder"></div>
                 {ssd.nome} - {ssd.tipoSsd} - {formatarTamanho(ssd.tamanho)} - R$ {ssd.preco}
+             
                 <button onClick={() => onRemover(ssd)} disabled={quantidade === 0}> - </button>
                 <span> {quantidade} </span>
-                <button onClick={() => onAdicionar(ssd)}> + </button>
+                <button onClick={() => onAdicionar(ssd)}> + </button> 
+                </div>
             </li>
         )
     }
